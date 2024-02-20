@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { CascaderProps, message } from 'antd';  // Import message from Ant Design for error handling
 import { LockOutlined, UserOutlined, MailOutlined } from '@ant-design/icons';
-import './Signup.css';
 import { AutoComplete, Button, Cascader, Checkbox, Col, Form, Input, InputNumber, Row, Select } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';  // Import useNavigate for navigation
 
@@ -118,7 +117,7 @@ const Signup: React.FC = () => {
     <Form.Item name="suffix" noStyle>
       <Select style={{ width: 70 }}>
         <Option value="USD">$</Option>
-        <Option value="CNY">¥</Option>
+        <Option value="CNY">Â¥</Option>
       </Select>
     </Form.Item>
   );
@@ -138,121 +137,121 @@ const Signup: React.FC = () => {
     value: website,
   }));
 
+
   return (
-        <div style={{
-            height:"100%",
-            width: "40%",
-            margin:"0 auto"
-          }}>
-            <div className='container2'>
-            <img src='logo2.png'style={{height:"50%",width: "60%",marginRight: '60px',marginBottom:"80px"}}></img>
-            </div>
-        <div className='signup-container'>
-          <div className='signup-container2'>
+    <div style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',   background: '#ebe2f2',
+  }}>
+    <span style={{ fontWeight: 'bold', fontFamily: 'modern', color: '#003366', textAlign: 'left', position: 'absolute', top: 20, left: 20, fontSize:'50px'}}>
+        FilesFly
+      </span>
+      <div className='container' style={{ width: '80%', maxWidth: 600, padding: '20px', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', textAlign: "center",background:'white'}}>
         <Form
-          {...formItemLayout}
           form={form}
           name="register"
           onFinish={onFinish}
-          initialValues={{ residence: ['zhejiang', 'hangzhou', 'xihu'], prefix: '86' }}
-          style={{ maxWidth: 600 }}
+          style={{ width: '100%',maxWidth: 600 }}
           scrollToFirstError
         >
-            <div style={{ textAlign: "center", marginTop:"20px",}}>
-            <h2 style={{color:'#003366'}}>create your account</h2>
-            <h2 style={{color:'#003366'}}>sign up and join our skystore</h2></div>
-            <div className='input'>
-        <Form.Item
-      name="Username"
+          <div style={{ textAlign: "center", marginTop: "20px" }}>
+            <h2 style={{ color: '#003366' ,fontFamily: 'modern'}}>Créer votre compte</h2>
+            <h2 style={{ color: '#003366',fontFamily: 'modern' }}>S'inscirire et rejoignez notre plateforme FilesFly</h2>
+          </div>
+          <div className='input' style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Form.Item
+            
+              name="Username"
+              tooltip="What do you want others to call you?"
+              rules={[
+                { required: true, message: 'Please input your nickname!', whitespace: true },
+              ]}
+              style={{ width: '100%', maxWidth: '300px' }}
+            >
+              <Input size='large' 
+                prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+                placeholder="entrer votre nom"
+                value={username} onChange={(e) => setUsername(e.target.value)}
+                
+              />
+            </Form.Item>
 
-      tooltip="What do you want others to call you?"
-      rules={[
-        { required: true, message: 'Please input your nickname!', whitespace: true },
-      ]}
-    >
-      <Input
-        prefix={<UserOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
-        placeholder="Enter your username"
-        value={username} onChange={(e) => setUsername(e.target.value)}
-      />
-    </Form.Item>
-        
-    <Form.Item
-      name="email"
-      rules={[
-        {
-          type: 'email',
-          message: 'The input is not a valid E-mail!',
-        },
-        {
-          required: true,
-          message: 'Please input your E-mail!',
-        },
-      ]}
-    >
-      <Input
-        prefix={<MailOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
-        placeholder="Enter your E-mail"
-        value={email} onChange={(e) => setEmail(e.target.value)}
-      />
-    </Form.Item>
+            <Form.Item
+              name="email"
+              rules={[
+                {
+                  type: 'email',
+                  message: 'The input is not a valid E-mail!',
+                },
+                {
+                  required: true,
+                  message: 'Please input your E-mail!',
+                },
+              ]}
+              style={{ width: '100%', maxWidth: '300px' }} // Apply style directly to Form.Item
+            >
+              <Input size='large'
+                prefix={<MailOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+                placeholder="Entrer votre E-mail"
+                value={email} onChange={(e) => setEmail(e.target.value)}
+              />
+            </Form.Item>
 
+            <Form.Item
+              name="password"
+              rules={[
+                {
+                  required: true,
+                  message: 'Please input your password!',
+                },
+              ]}
+              hasFeedback
+              style={{ width: '100%', maxWidth: '300px' }} // Apply style directly to Form.Item
+            >
+              <Input.Password size='large'
+                prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+                placeholder="Enterr votre mot de pass"
+                value={password} onChange={(e) => setPassword(e.target.value)}
+              />
+            </Form.Item>
 
-    <Form.Item
-      name="password"
-      rules={[
-        {
-          required: true,
-          message: 'Please input your password!',
-        },
-      ]}
-      hasFeedback
-    >
-      <Input.Password
-        prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
-        placeholder="Enter your password"
-        value={password} onChange={(e) => setPassword(e.target.value)}
-      />
-    </Form.Item>
+            <Form.Item 
+              name="confirm"
+              dependencies={['password']}
+              hasFeedback
+              rules={[
+                {
+                  required: true,
+                  message: 'Please confirm your password!',
+                },
+                ({ getFieldValue }) => ({
+                  validator(_, value) {
+                    if (!value || getFieldValue('password') === value) {
+                      return Promise.resolve();
+                    }
+                    return Promise.reject(new Error('The new password that you entered does not match!'));
+                  },
+                }),
+              ]}
+              style={{ width: '100%', maxWidth: '300px' }} // Apply style directly to Form.Item
+            >
+              <Input.Password size='large'
+                prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
+                placeholder="Confirmer votre mot de pass"
+              />
+            </Form.Item>
+          </div>
 
-    <Form.Item
-      name="confirm"
-      dependencies={['password']}
-      hasFeedback
-      rules={[
-        {
-          required: true,
-          message: 'Please confirm your password!',
-        },
-        ({ getFieldValue }) => ({
-          validator(_, value) {
-            if (!value || getFieldValue('password') === value) {
-              return Promise.resolve();
-            }
-            return Promise.reject(new Error('The new password that you entered does not match!'));
-          },
-        }),
-      ]}
-    >
-      <Input.Password
-        prefix={<LockOutlined style={{ color: 'rgba(0,0,0,.25)' }} />}
-        placeholder="Confirm your password"
-      />
-    </Form.Item>
-    </div>
-          <div style={{ marginLeft:"80px",textAlign: "center", marginTop:"20px"}}>
-            <p style={{color:'#003366',fontWeight:'bold'}}>already have an account ?<Link to="/signin">login</Link></p></div>
+          <div style={{ textAlign: "center", marginTop: "20px" }}>
+          <p style={{color:'#003366',fontWeight:'bold',fontFamily: 'modern'}}>avez vous deja un compte ?<Link to="/signin">se connecter</Link></p></div>
             <div className='input2'>
-          <Form.Item {...tailFormItemLayout}>
-            <Button type="primary" htmlType="submit">
-              Register
-            </Button>
-          </Form.Item>
+            <Form.Item >
+            <Button  htmlType="submit" size='large' style={{ width: "60%", margin: "0 auto", marginBottom:"13px" ,background:'#003366',color :'white'}}>
+                s'inscrire
+              </Button>
+            </Form.Item>
           </div>
         </Form>
-        </div>
-        </div>
-        </div>
+      </div>
+    </div>
   );
 };
 

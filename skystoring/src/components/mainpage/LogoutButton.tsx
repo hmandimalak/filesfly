@@ -46,9 +46,9 @@ const LogoutButton: React.FC<LogoutButtonProps> = ({ onLogout }) => {
   };  
 
   return (
-    <div style={{ marginTop: '15px', marginRight: '30px' }}>
-      <Button size='large' type="primary" onClick={handleLogout}>
-        <LogoutOutlined />Logout
+    <div style={{ marginTop: '15px', marginLeft: '50px' }}>
+      <Button  type="primary" ghost onClick={handleLogout}>
+        <LogoutOutlined />se deconnecter
       </Button>
     </div>
   );

@@ -12,6 +12,7 @@ import axios from "axios";
 import PinnedFilesPage from "./PinnedFilesPage";
 import MyStoring from "./MyStoring";
 import { FolderOutlined, FileOutlined } from "@ant-design/icons";
+import SearchResults from "./SearchResults";
 
 const { Header, Content, Footer } = Layout;
 
@@ -21,23 +22,27 @@ export interface FolderType {
 }
 
 const MainPage: React.FC = () => {
-  const [selectedContent, setSelectedContent] = useState<string>("filelist");
+  const [selectedContent, setSelectedContent] = useState<string>("folderlist");
   const [selectedFolderId, setSelectedFolderId] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [folders, setFolders] = useState<FolderType[]>([]);
-  const [menu, setMenu] = useState<string>("home");
+  const [menu, setMenu] = useState<string>("Mesfichiers");
 
   const handleButtonClick = (content: string) => {
     setSelectedContent(content);
   };
 
-  const handleMystoringClick = () => {
-    setMenu("mystoring");
+  const handleMesdossiersClick = () => {
+    setMenu("Mesdossiers");
+  };
+
+  const handleMesfichierClick = () => {
+    setMenu("Mesfichiers");
   };
 
   const navigateToSearchResults = (query: string) => {
     setSearchQuery(query);
-  }
+  };
 
   const fetchFolders = async () => {
     try {
@@ -62,12 +67,12 @@ const MainPage: React.FC = () => {
   }, []);
 
   return (
-    <Layout style={{ minHeight: "100vh" }}>
+    <Layout style={{ minHeight: "100vh", background: 'white'}}>
       <Sidebar
-        onhomeclick={() => setMenu("home")}
-        onmystoringclick={handleMystoringClick}
+        onmesdossiersclick={handleMesdossiersClick}
         onSidebarItemClick={handleButtonClick}
         onPinnedClick={() => setMenu("pinned")}
+        onmesfichiersclick={handleMesfichierClick}
       />
       <Layout>
         <Header
@@ -77,91 +82,38 @@ const MainPage: React.FC = () => {
             background: "white",
           }}
         >
-          <Searchbar onSearchButtonClick={navigateToSearchResults} />
         </Header>
         <Content style={{ margin: "0 16px" }}>
-          {menu === "home" && (
-            <p style={{ fontSize: "35px" }}>
-              {selectedContent === "filelist" ? (
-                <>
-                  <FileOutlined style={{ color: "#1777FF" }} /> FilesList
-                </>
-              ) : (
-                <>
-                  <FolderOutlined style={{ color: "#1777FF" }} /> Folders List
-                </>
-              )}
-            </p>
-          )}
-          <div
-            style={{
-              padding: 24,
-              minHeight: 360,
-              borderRadius: "yourRadius",
-              background: "#yourContentBgColor",
-            }}
-          >
-            {menu === "home" && (
-              <Space style={{ marginBottom: "12px" }}>
-                <Typography.Text>Suggestion</Typography.Text>
-                <Button
-                  size="large"
-                  type="primary"
-                  icon={<FileOutlined />}
-                  onClick={() => handleButtonClick("filelist")}
-                >
-                  Files
-                </Button>
-                <Button
-                  size="large"
-                  type="primary"
-                  icon={<FolderOutlined />}
-                  onClick={() => handleButtonClick("folderlist")}
-                >
-                  Folders
-                </Button>
-              </Space>
-            )}
-            <Layout>
-              <DndProvider backend={HTML5Backend}>
-                {menu === "home" ? (
-                  <>
-                    {selectedContent === "filelist" ? (
-                      <FileList
-                        searchQuery={searchQuery}
-                        onSelect={() => {}}
-                        onFileDrop={() => {}}
-                        onMoveToFolder={(files, folderId) => {
-                          console.log(
-                            `Move files to folder ${folderId}`,
-                            files
-                          );
-                        }}
-                        folders={folders}
-                      />
-                    ) : selectedContent === "folderlist" ? (
-                      <FolderList />
-                    ) : null}
-                  </>
-                ) : menu === "mystoring" ? (
-                  <MyStoring />
+          <Layout>
+            <DndProvider backend={HTML5Backend}>
+            {searchQuery ? (
+                  <SearchResults query={searchQuery} />
+
+
                 ) : (
-                  <PinnedFilesPage />
+                  <>
+              {menu === "Mesfichiers" ? (
+                <FileList
+                  searchQuery={searchQuery}
+                  onSelect={() => {}}
+                  onFileDrop={() => {}}
+                  onMoveToFolder={(files, folderId) => {
+                    console.log(`Move files to folder ${folderId}`, files);
+                  }}
+                  folders={folders}
+                />
+              ) : menu === "Mesdossiers" ? (
+                <FolderList />
+              ) : (
+                <PinnedFilesPage />
+                
+              )}
+              </>
                 )}
-                {/* {showPinnedFiles ? (
-                  <PinnedFilesPage />
-                ) : showMystoringFiles ? (
-                  <MyStoring />
-                ) : selectedContent === "folderlist" ? (
-                 
-                ) : selectedContent === "mystoring" ? (
-                  <MyStoring />
-                ) :  : null} */}
-              </DndProvider>
-            </Layout>
-          </div>
+            </DndProvider>
+          </Layout>
         </Content>
-        <Footer style={{ textAlign: "center", background: "#yourFooterColor" }}>
+        <Footer style={{ textAlign: "center", background: "white" }}>
           ©{new Date().getFullYear()}
         </Footer>
       </Layout>

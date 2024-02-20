@@ -96,9 +96,9 @@ WSGI_APPLICATION = 'custom_auth.wsgi.application'
 DATABASES = {
     'default': {
          'ENGINE': 'django.db.backends.postgresql',
-         'NAME': 'skystoring',
+         'NAME': 'filesfly',
          'USER': 'postgres',
-         'PASSWORD': 'rayen',
+         'PASSWORD': '1234',
          'HOST': 'localhost',
          'PORT': '5432',
    }

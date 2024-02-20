@@ -1,6 +1,8 @@
+// signin.tsx
 import React, { useState } from 'react';
 import { Button, Checkbox, Form, Input, message ,Typography} from "antd";
 import { LockOutlined, UserOutlined,} from "@ant-design/icons";
+import "./signin.css";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 import axios from 'axios';
 import { useNavigate } from "react-router-dom";
@@ -55,16 +57,16 @@ const Signin: React.FC = () => {
 
   return (
 
-    <div className="signin-container"style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',  background: '#ebe2f2',
+    <div className="signin-container"style={{ height: '100vh', display: 'flex', justifyContent: 'center', alignItems: 'center',   background: 'rgb(2,0,36)',
   }}>
- <span style={{ fontWeight: 'bold', fontFamily: 'modern',color: '#003366', textAlign: 'left', position: 'absolute', top: 20, left: 20, fontSize:'50px'}}>
+ <span style={{ fontWeight: 'bold', fontFamily: 'modern', color: 'white', textAlign: 'left', position: 'absolute', top: 20, left: 20, fontSize:'50px'}}>
         FilesFly
       </span>
       
       <div className="container" style={{ width: '80%', maxWidth: 600, padding: '20px', borderRadius: '8px', boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)', textAlign: "center",background:'white'}}>
         <div className="welcome-message">
-        <h2 style={{ color: '#003366' }}>Bienvenue a FilesFly,</h2>
-        <h2 style={{ color: '#003366' }}>vous n'avez pas de compte ? </h2><Link to="/signup">Créer un compte</Link>
+          <p>Bienvenue a FilesFly,</p>
+          vous n'avez pas de compte ? <Link to="/signup">Créer un compte</Link>
         </div>
 
         <Form
@@ -111,8 +113,8 @@ const Signin: React.FC = () => {
           </Form.Item>
 
           <Form.Item>
-            <Button  htmlType="submit" size='large' style={{ width: "60%", margin: "0 auto", marginBottom:"13px" ,background:'#003366',color :'white'}}>
-              Se connecter
+            <Button type="primary" htmlType="submit" size='large' style={{ width: "60%", margin: "0 auto", marginBottom:"13px" }}>
+              Se conncter
             </Button>
 
             

@@ -168,7 +168,7 @@ const FolderList: React.FC<FolderListProps> = () => {
 
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider  backend={HTML5Backend}>
       <DragDropContext onDragEnd={handleDragEnd}>
         <Droppable droppableId="folders" direction="vertical">
           {(provided) => (
@@ -178,7 +178,7 @@ const FolderList: React.FC<FolderListProps> = () => {
                   <Input placeholder="Enter folder name" />
                 </Form.Item>
                 <Form.Item>
-                <Button type="primary" htmlType="submit" loading={loading}>
+                <Button type='primary' htmlType="submit" loading={loading}>
             Create Folder
           </Button>
                 </Form.Item>

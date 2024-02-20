@@ -1,30 +1,21 @@
-//sidebar.tsx
+// Navbar.tsx
 import React, { useState } from 'react';
 import {
-  DesktopOutlined,
-  FileOutlined,
-  PieChartOutlined,
-  TeamOutlined,
-  UserOutlined,
-  PushpinOutlined,
-  HomeOutlined,
   FolderOpenOutlined,
+  FileOutlined,
+  PushpinOutlined,
 } from '@ant-design/icons';
-import type { MenuProps } from 'antd';
-import { Layout, Menu, theme, Typography ,Button} from 'antd';
+import { Layout, Menu, theme, Typography } from 'antd';
 import { Link } from 'react-router-dom';
-import PinnedFilesPage from './PinnedFilesPage';
+import Searchbar from './searchbar';
+import SearchResults from './SearchResults';
+
+const { Header } = Layout;
 
 
-
-
-const { Sider } = Layout;
-
-
-interface SidebarProps {
+interface NavbarProps {
   onSelectContent: (content: string) => void;
 }
-
 
 type MenuItem = {
   key: React.Key;
@@ -47,64 +38,77 @@ function getItem(
   } as MenuItem;
 }
 
-const Sidebar: React.FC<{onmystoringclick: () => void; onSidebarItemClick: (content: string) => void ;onPinnedClick: () => void ; onhomeclick: () => void}> = ({
-  onmystoringclick,
+const Navbar: React.FC<{
+  onmesdossiersclick: () => void;
+  onSidebarItemClick: (content: string) => void;
+  onPinnedClick: () => void;
+  onmesfichiersclick: () => void;
+}> = ({
   onSidebarItemClick,
   onPinnedClick,
-  onhomeclick,
+  onmesfichiersclick,
+  onmesdossiersclick,
 }) => {
   const [collapsed, setCollapsed] = useState(false);
+  const [searchQuery, setSearchQuery] = useState<string>("");
   const {
-    token: { colorBgContainer, borderRadiusLG },
+    token: { borderRadiusLG },
   } = theme.useToken();
 
-    
   const items: MenuItem[] = [
-    getItem(<span onClick={onhomeclick}>Home</span>,
-    '1',
-    <HomeOutlined />,),
     
-    getItem(<span onClick={onmystoringclick}>Mystoring</span>,
-    '2',
-    <FolderOpenOutlined />,),
-    getItem('test', 'sub1', <UserOutlined />),
-    getItem('shared', 'sub2', <TeamOutlined />,),
     getItem(
-      <span onClick={onPinnedClick}>Pinned</span>,
+      <span onClick={onmesfichiersclick}>Mes fichiers</span>,
+      '1',
+      <FileOutlined />,
+    ),
+    getItem(
+      <span onClick={onmesdossiersclick}>Mes dossiers</span>,
+      '2',
+      <FolderOpenOutlined />,
+    ),
+    getItem(
+      <span onClick={onPinnedClick}>épingle</span>,
       '9',
-      <PushpinOutlined />
+      <PushpinOutlined />,
     ),
   ];
- 
+  const navigateToSearchResults = (query: string) => {
+    setSearchQuery(query);
+  };
 
   return (
-    <Sider
-      collapsible
-      collapsed={collapsed}
-      onCollapse={(value) => setCollapsed(value)}
-      style={{ background: 'white' }}
+    <Header style={{ display: 'flex', alignItems: 'center', background: 'white' }}>
+      <div style={{ display: 'flex', marginRight: '15px' }}>
+      
+        <Typography.Title
+          style={{
+            color: '#003366',
+            fontSize: '50px',
+            fontWeight: 'bold',
+            fontFamily:'modern',
+            marginRight: '30px',
+            float : 'left',
+          }}
+        >
+          FilesFly
+        </Typography.Title>
+      </div>
+      <Menu
+        theme="light"
+        mode="horizontal"
+        defaultSelectedKeys={['1']}
+        items={items}
+        style={{ flex: 1, minWidth: 0 }}
+      />
+      <Searchbar onSearchButtonClick={navigateToSearchResults} />
+      {searchQuery ? (
+                  <SearchResults query={searchQuery} />
 
-    >
-      <div style={{ display: 'flex', marginTop: '15px', marginRight: '15px' }}>
-        <img src="skystoring-high-resolution-logo-transparent-removebg-preview.png" style={{ height: '50px', width: '75px' }} alt="logo" />
-        {!collapsed && (
-          <Typography.Title
-            style={{
-              color: '#003366',
-              fontSize: '21px',
-              fontWeight: 'bold',
-            }}
-          >
-            Skystoring
-          </Typography.Title>
-        )}
-      </div>
-      <div style={{ display: 'flex', marginTop: '15px', marginRight: '15px' }}>
-      </div>
-      <Menu style={{marginTop:"20px"}} theme="light" defaultSelectedKeys={['1']} mode="vertical" items={items} >
-      </Menu>
-    </Sider>
+
+                ) :  null}
+    </Header>
   );
 };
 
-export default Sidebar;
+export default Navbar;

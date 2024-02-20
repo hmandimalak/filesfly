@@ -27,7 +27,6 @@ const PinToggleButton: React.FC<PinToggleButtonProps> = ({ file }) => {
 };
   return (
     <Button icon={<PushpinOutlined />} onClick={handlePinToggle}>
-      Toggle Pin
     </Button>
   );
 };

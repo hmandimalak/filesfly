@@ -15,13 +15,14 @@ export interface FileType extends UploadFile<any> {
   folderId: number;
 }
 
+interface LogoutButtonProps {
+  onLogout: () => void;
+}
+
+
 const UserMenu: React.FC<{ username: string; onLogout: () => void }> = ({ username, onLogout }) => (
   <div style={{ textAlign: 'center' }}>
-    <Avatar size={64} icon={<UserOutlined />} />
-    <p>{username}</p>
-    <Button type="link" icon={<SettingOutlined />} onClick={() => console.log('Settings clicked')}>
-      Settings
-    </Button>
+    
     <LogoutButton onLogout={onLogout} />
   </div>
 );
@@ -123,18 +124,10 @@ const Searchbar: React.FC<{ onSearchButtonClick: (query: string) => void }> = ({
   }, []);
 
   return (
+   
     <Space >
-      <Popover
-        content={<UserMenu username={username} onLogout={handleLogout} />}
-        trigger="click"
-        open={userMenuVisible}
-        onOpenChange={(visible) => setUserMenuVisible(visible)}
-      >
-        <Avatar
-          icon={<UserOutlined style={{ paddingTop: '9px' }} />}
-          style={{ position: 'absolute', right: '25px', top: '10px', width: '40px', height: '40px', cursor: 'pointer', alignContent: 'centre' }}
-        />
-      </Popover>
+    
+      
       
       {/* Search bar */}
       <AutoComplete
@@ -142,9 +135,9 @@ const Searchbar: React.FC<{ onSearchButtonClick: (query: string) => void }> = ({
         onSearch={onSearch}
       >
         <Search
-          placeholder="Input search text"
+          placeholder="rechrecher ici"
           allowClear
-          enterButton="Search"
+          enterButton="rechercher"
           onSearch={onSearchButtonClick}
         />
       </AutoComplete>
@@ -176,7 +169,9 @@ const Searchbar: React.FC<{ onSearchButtonClick: (query: string) => void }> = ({
           </div>
         </div>
       )}
+      <LogoutButton onLogout={handleLogout} />
     </Space>
+    
   );
 };
 

@@ -339,7 +339,7 @@ const FileList: React.FC<FileListProps> = ({ folderId,onFileDrop, searchQuery, o
   
     return (
       <Dropdown overlay={menu} placement="bottomLeft">
-        <Button icon={<FolderOpenOutlined />}>Move to Folder</Button>
+        <Button icon={<FolderOpenOutlined />}></Button>
       </Dropdown>
     );
   };
@@ -351,9 +351,18 @@ const FileList: React.FC<FileListProps> = ({ folderId,onFileDrop, searchQuery, o
   });
 
   return (
-    <DndProvider backend={HTML5Backend}>
+    <DndProvider  backend={HTML5Backend}>
+  
       <>
+      <div  style={{ background: 'white'}}>
       <Button
+      type="primary"
+      ghost
+      style={{
+        maxWidth : '120px'
+
+      }}
+      
         icon={<UploadOutlined />}
         onClick={() => {
           const input = document.createElement('input');
@@ -391,10 +400,8 @@ const FileList: React.FC<FileListProps> = ({ folderId,onFileDrop, searchQuery, o
               {/* Buttons for Download, Delete, and Move to Folder */}
               <div className="file-actions">
                 <Button icon={<DownloadOutlined />} onClick={() => handleDownload(file)} loading={loading}>
-                  Download
                 </Button>
                 <Button danger icon={<DeleteOutlined />} onClick={() => handleDelete(file)} loading={loading}>
-                  Delete
                 </Button>
                 <MoveToFileDropdown file={file} folders={folders} />
                 <div className="file-selection" onClick={() => handleFileClick(file)}></div>
@@ -405,8 +412,9 @@ const FileList: React.FC<FileListProps> = ({ folderId,onFileDrop, searchQuery, o
           ))}
           
         </div>
-
+        </div>
       </>
+      
     </DndProvider>
   );
 };
